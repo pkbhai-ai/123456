@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexira AI</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.2));
+            animation: backgroundAnimation 10s infinite;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-color: rgba(29, 29, 29, 0.8); }
+            50% { background-color: rgba(10, 10, 10, 0.8); }
+            100% { background-color: rgba(0, 0, 0, 0.8); }
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-interface {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .chat-header {
+            background: rgba(0, 123, 255, 0.8);
+            color: white;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .messages {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+
+        .input {
+            display: flex;
+        }
+
+        .input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 0;
+        }
+
+        .input button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .input button:hover {
+            background: #0056b3;
+        }
+    </style>
+    <script>
+        function addChatMessage(type, content) {
+            const messages = document.querySelector('.messages');
+            const message = document.createElement('div');
+            message.className = type;
+            message.textContent = content;
+            messages.appendChild(message);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function handleChat() {
+            const input = document.querySelector('.input input');
+            const button = document.querySelector('.input button');
+            button.addEventListener('click', () => {
+                const userMessage = input.value;
+                if(userMessage) {
+                    addChatMessage('user', userMessage);
+                    input.value = '';
+                    setTimeout(() => {
+                        const aiResponse = 'AI response: ' + userMessage;
+                        addChatMessage('ai', aiResponse);
+                    }, 1000);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            handleChat();
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Nexira AI</h1>
+    </div>
+    <div class="chat-interface">
+        <div class="chat-header">Chat with AI</div>
+        <div class="messages"></div>
+        <div class="input">
+            <input type="text" placeholder="Type your message..." />
+            <button>Send</button>
+        </div>
+    </div>
+</body>
+</html>
